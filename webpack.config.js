@@ -2,6 +2,7 @@ module.exports = function(webpackConfig, env){
   // webpackConfig配置
   const path = require('path');
   const _ = require('lodash');
+  const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
   const ROOT_PATH = path.resolve(__dirname);
   const APP_PATH = path.resolve(ROOT_PATH,'src');
@@ -19,8 +20,47 @@ module.exports = function(webpackConfig, env){
     publicPath: '/'
   };
 
-  console.log(webpackConfig.output)
-  //exit;
+  // 模块支持
+  webpackConfig.module = {
+    loaders: [
+      {
+        exclude: [/\.(js|jsx)$/, /\.(scss|sass|less|css)$/, /\.html$/, /\.json$/,  /\.(jpe?g|gif|png|webp|bmp)$/, /\.(svg|woff2?|ttf|eot)\??(.*?)$/],
+        loader: 'url',
+        query: {
+          limit: 10000,
+          name: 'static/other/[name].[hash:8].[ext]'
+        }
+      }, {
+        test: /\.(js|jsx)$/,
+        loader: 'babel?cacheDirectory=.cache'
+      }, {
+        test: /\.(scss|sass)/,
+        loader: ExtractTextPlugin.extract(['style','css','sass'])
+      }, {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract(['style','css','less'])
+      }, {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract(['style','css'])
+      }, {
+        test: /\.html$/,
+        loader: 'file?name=[name].[ext]'
+      }, {
+        test: /\.json$/,
+        loader: 'json'
+      }, {
+        test: /\.(jpe?g|gif|png|webp|bmp)$/,
+        loader: 'file?name=static/images/[name].[hash:8].[ext]'
+      }, {
+        test: /\.(svg|woff2?|ttf|eot)\??(.*?)$/,
+        loader: 'file?name=static/fonts/[name].[hash:8].[ext]'
+      }
+    ]
+  };
+
+  // 插件增加
+  webpackConfig.plugins.push(new ExtractTextPlugin({filename: '[name].[hash].css', ignoreOrder: true}));
+
   return webpackConfig;
 };
 
