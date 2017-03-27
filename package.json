@@ -1,8 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "start": "cross-env PORT=3032 webpack-dashboard -p 3033 roadhog server",
-    "build": "roadhog build",
+    "start": "cross-env PORT=3032 RELEASE_ENV=development webpack-dashboard -p 3033 roadhog server",
+    "build": "npm run build:prod",
+    "build:dev": "cross-env RELEASE_ENV=development roadhog build",
+    "build:prod": "cross-env RELEASE_ENV=production roadhog build",
     "lint": "eslint --ext .js src test",
     "precommit": "npm run lint"
   },

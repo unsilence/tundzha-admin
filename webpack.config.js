@@ -17,7 +17,8 @@ module.exports = function(webpackConfig, env){
   const __DATETIME__ = (new Date()).toLocaleString();
 
   let BUILD = '';
-  switch (env){
+
+  switch (process.env.RELEASE_ENV){
     case 'development':
       BUILD = __BRANCH__+'@DEV - build@'+__DATETIME__;
       break;
@@ -27,6 +28,7 @@ module.exports = function(webpackConfig, env){
     default:
       BUILD = __BRANCH__+'@OTHER - build@'+__DATETIME__;
   }
+
   const __BUILD__ = BUILD.toString();
 
   // 输入配置
@@ -79,7 +81,10 @@ module.exports = function(webpackConfig, env){
 
   // 插件增加
 
-  webpackConfig.plugins.push(new WebpackDashboardPlugin({port:3033}));
+  // 开发环境插件
+  if(env == 'development'){
+    webpackConfig.plugins.push(new WebpackDashboardPlugin({port:3033}));
+  }
 
   let isExtractTextPlugin = false;
 
