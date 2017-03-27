@@ -9,6 +9,25 @@ module.exports = function(webpackConfig, env){
   const APP_PATH = path.resolve(ROOT_PATH,'src');
   const BUILD_PATH = path.resolve(ROOT_PATH,'dist');
 
+  // 变量初始化
+  const child_process = require('child_process');
+  const cmd = "git branch | grep \\* | cut -d ' ' -f2";
+  const __BRANCH__ = child_process.execSync(cmd).toString().trim();
+  const __DATETIME__ = (new Date()).toLocaleString();
+
+  let BUILD = '';
+  switch (env){
+    case 'development':
+      BUILD = __BRANCH__+'@DEV - build@'+__DATETIME__;
+      break;
+    case 'production':
+      BUILD = __BRANCH__+'@PROD - build@'+__DATETIME__;
+      break;
+    default:
+      BUILD = __BRANCH__+'@OTHER - build@'+__DATETIME__;
+  }
+  const __BUILD__ = BUILD.toString();
+
   // 输入配置
   webpackConfig.entry.app = _.assign([],webpackConfig.entry.index);
   delete webpackConfig.entry.index;
@@ -62,8 +81,15 @@ module.exports = function(webpackConfig, env){
   let isExtractTextPlugin = false;
 
   for(let x in webpackConfig.plugins){
+    let constructorName = webpackConfig.plugins[x].constructor.name;
+    if(constructorName == 'DefinePlugin'){
+      let pluginsDefinitions = {
+        __BUILD__:JSON.stringify(__BUILD__)
+      };
+      webpackConfig.plugins[x].definitions = _.assign({},webpackConfig.plugins[x].definitions,pluginsDefinitions);
+    }
     // webpack替换
-    if(webpackConfig.plugins[x].constructor.name == 'ExtractTextPlugin'){
+    if(constructorName == 'ExtractTextPlugin'){
       isExtractTextPlugin = true;
       webpackConfig.plugins[x] = new ExtractTextPlugin("static/css/[name].[hash:8].css");
     }
