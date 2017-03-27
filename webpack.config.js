@@ -59,7 +59,7 @@ module.exports = function(webpackConfig, env){
   };
 
   // 插件增加
-  webpackConfig.plugins.push(new ExtractTextPlugin({filename: "static/css/[name].css", ignoreOrder: true}));
+  webpackConfig.plugins.push(new ExtractTextPlugin("static/css/[name].css"));
 
   return webpackConfig;
 };
