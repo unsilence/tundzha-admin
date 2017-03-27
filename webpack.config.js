@@ -35,13 +35,13 @@ module.exports = function(webpackConfig, env){
         loader: 'babel?cacheDirectory=.cache'
       }, {
         test: /\.(scss|sass)/,
-        loader: ExtractTextPlugin.extract(['style','css','sass'])
+        loader: ExtractTextPlugin.extract('style','css','sass','postcss')
       }, {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract(['style','css','less'])
+        loader: ExtractTextPlugin.extract('style','css','less','postcss')
       }, {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract(['style','css'])
+        loader: ExtractTextPlugin.extract('style','css','postcss')
       }, {
         test: /\.html$/,
         loader: 'file?name=[name].[ext]'
@@ -59,7 +59,7 @@ module.exports = function(webpackConfig, env){
   };
 
   // 插件增加
-  webpackConfig.plugins.push(new ExtractTextPlugin({filename: '[name].[hash].css', ignoreOrder: true}));
+  webpackConfig.plugins.push(new ExtractTextPlugin({filename: "static/css/[name].css", ignoreOrder: true}));
 
   return webpackConfig;
 };
