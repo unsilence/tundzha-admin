@@ -3,6 +3,7 @@ module.exports = function(webpackConfig, env){
   const path = require('path');
   const _ = require('lodash');
   const ExtractTextPlugin = require("extract-text-webpack-plugin");
+  const HtmlWebpackPlugin = require("html-webpack-plugin");
 
   const ROOT_PATH = path.resolve(__dirname);
   const APP_PATH = path.resolve(ROOT_PATH,'src');
@@ -15,7 +16,7 @@ module.exports = function(webpackConfig, env){
   // 输出配置
   webpackConfig.output = {
     path: BUILD_PATH,
-    filename: 'static/js/[name].js',
+    filename: 'static/js/[name].[hash:8].js',
     pathinfo: true,
     publicPath: '/'
   };
@@ -44,9 +45,6 @@ module.exports = function(webpackConfig, env){
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style','css?importLoaders=1&modules&localIdentName=[local]___[hash:base64:5]','postcss')
       }, {
-        test: /\.html$/,
-        loader: 'file?name=[name].[ext]'
-      }, {
         test: /\.json$/,
         loader: 'json'
       }, {
@@ -60,7 +58,29 @@ module.exports = function(webpackConfig, env){
   };
 
   // 插件增加
-  webpackConfig.plugins.push(new ExtractTextPlugin("static/css/[name].css"));
+
+  let isExtractTextPlugin = false;
+
+  for(let x in webpackConfig.plugins){
+    // webpack替换
+    if(webpackConfig.plugins[x].constructor.name == 'ExtractTextPlugin'){
+      isExtractTextPlugin = true;
+      webpackConfig.plugins[x] = new ExtractTextPlugin("static/css/[name].[hash:8].css");
+    }
+  }
+
+  if(!isExtractTextPlugin){
+    webpackConfig.plugins.push(new ExtractTextPlugin("static/css/[name].[hash:8].css"));
+  }
+
+  webpackConfig.plugins.push(new HtmlWebpackPlugin({
+    title: 'Node Admin',
+    filename: path.resolve(BUILD_PATH,'index.html'),
+    template: path.resolve(APP_PATH,'entry','index.html'),
+    chunks: ['app'],
+    inject: true,
+    hash: true,
+  }));
 
   return webpackConfig;
 };
