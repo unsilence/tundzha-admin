@@ -47,7 +47,7 @@ module.exports = function(webpackConfig, env){
   webpackConfig.module = {
     loaders: [
       {
-        exclude: [/\.(js|jsx)$/, /\.(scss|sass|less|css)$/, /\.html$/, /\.json$/,  /\.(jpe?g|gif|png|webp|bmp)$/, /\.(svg|woff2?|ttf|eot)\??(.*?)$/],
+        exclude: [/\.(js|jsx)$/, /\.(less|css)$/, /\.html$/, /\.json$/,  /\.(jpe?g|gif|png|webp|bmp)$/, /\.(svg|woff2?|ttf|eot)\??(.*?)$/],
         loader: 'url',
         query: {
           limit: 10000,
@@ -57,9 +57,6 @@ module.exports = function(webpackConfig, env){
         test: /\.(js|jsx)$/,
         loader: 'babel?cacheDirectory=.cache',
         exclude: /node_modules/
-      }, {
-        test: /\.(scss|sass)/,
-        loader: ExtractTextPlugin.extract('style','css?importLoaders=1&modules&localIdentName=[local]___[hash:base64:5]','sass','postcss')
       }, {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract('style','css?importLoaders=1&modules&localIdentName=[local]___[hash:base64:5]','less','postcss')
