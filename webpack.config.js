@@ -4,6 +4,7 @@ module.exports = function(webpackConfig, env){
   const _ = require('lodash');
   const ExtractTextPlugin = require("extract-text-webpack-plugin");
   const HtmlWebpackPlugin = require("html-webpack-plugin");
+  const WebpackDashboardPlugin = require('webpack-dashboard/plugin');
 
   const ROOT_PATH = path.resolve(__dirname);
   const APP_PATH = path.resolve(ROOT_PATH,'src');
@@ -77,6 +78,8 @@ module.exports = function(webpackConfig, env){
   };
 
   // 插件增加
+
+  webpackConfig.plugins.push(new WebpackDashboardPlugin({port:3033}));
 
   let isExtractTextPlugin = false;
 
