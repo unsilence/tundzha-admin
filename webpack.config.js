@@ -32,16 +32,17 @@ module.exports = function(webpackConfig, env){
         }
       }, {
         test: /\.(js|jsx)$/,
-        loader: 'babel?cacheDirectory=.cache'
+        loader: 'babel?cacheDirectory=.cache',
+        exclude: /node_modules/
       }, {
         test: /\.(scss|sass)/,
-        loader: ExtractTextPlugin.extract('style','css','sass','postcss')
+        loader: ExtractTextPlugin.extract('style','css?importLoaders=1&modules&localIdentName=[local]___[hash:base64:5]','sass','postcss')
       }, {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style','css','less','postcss')
+        loader: ExtractTextPlugin.extract('style','css?importLoaders=1&modules&localIdentName=[local]___[hash:base64:5]','less','postcss')
       }, {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style','css','postcss')
+        loader: ExtractTextPlugin.extract('style','css?importLoaders=1&modules&localIdentName=[local]___[hash:base64:5]','postcss')
       }, {
         test: /\.html$/,
         loader: 'file?name=[name].[ext]'
