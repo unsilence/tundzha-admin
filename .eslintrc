@@ -23,7 +23,7 @@
     "no-cond-assign": [0],
     "import/no-unresolved": [0],
     "require-yield": [1],
-    "linebreak-style": ["error", "windows"]
+    "linebreak-style": [0]
   },
   "globals": {
     "__BUILD__" : true
