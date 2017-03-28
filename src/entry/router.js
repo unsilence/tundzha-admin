@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router, Route } from 'dva/router';
-import App from '../routes/App';
 
 // Models注册方法
 const cached = {};
@@ -16,18 +15,30 @@ const Routers = (({ history, app }) => {
   const routes = [
     {
       path: '/',
+      name: '首页',
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
-          registerModel(app, require('../models/App'));
-          cb(null, require('../routes/App'));
-        }, 'App');
+          registerModel(app, require('../models/app'));
+          cb(null, require('../routes/app'));
+        }, 'app');
       },
       getIndexRoute(nextState, cb) {
         require.ensure([], (require) => {
-          registerModel(app, require('../models/Dashboard'));
-          cb(null, { component: require('../routes/Dashboard') });
-        }, 'Dashboard');
+          registerModel(app, require('../models/dashboard'));
+          cb(null, { component: require('../routes/dashboard') });
+        }, 'dashboard');
       },
+      childRoutes: [
+        {
+          path: 'login',
+          name: '登录',
+          getIndexRoute(nextSate, cb) {
+            require.ensure([], (require) => {
+              cb(null, { component: require('../routes/login') });
+            }, 'login');
+          },
+        },
+      ],
     },
   ];
 

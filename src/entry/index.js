@@ -1,15 +1,20 @@
 import dva from 'dva';
 import createLoading from 'dva-loading';
-import { message } from 'antd';
+import { notification } from 'antd';
 
 const ERROR_MSG_DURATION = 3; // 3 秒
 
 const app = dva({
-  ...createLoading(),
   onError(e) {
-    message.error(e.message, ERROR_MSG_DURATION);
+    notification['error']({
+      message: '温馨提示',
+      description: e.message,
+      duration: ERROR_MSG_DURATION,
+    });
   },
 });
+
+app.use(createLoading());
 
 app.router(require('./router'));
 

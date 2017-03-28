@@ -1,16 +1,14 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 
-const Dashboard = () => {
+const dashboard = () => {
   return (
     <div>
-      草泥马
+      仪盘表
     </div>
   )
 };
 
 export default connect((state, ownProps) => {
-  return {
-    state: '123',
-  }
-})(Dashboard);
+  return {}
+})(dashboard);

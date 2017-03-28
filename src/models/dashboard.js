@@ -1,6 +1,6 @@
 export default {
 
-  namespace: 'Dashboard',
+  namespace: 'dashboard',
 
   state: {},
 

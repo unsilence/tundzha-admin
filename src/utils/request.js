@@ -22,6 +22,9 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
+  if(!url){
+    throw '网络请求故障';
+  }
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
