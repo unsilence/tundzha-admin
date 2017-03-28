@@ -40,7 +40,9 @@ module.exports = function(webpackConfig, env){
     path: BUILD_PATH,
     filename: 'static/js/[name].[hash:8].js',
     pathinfo: true,
-    publicPath: '/'
+    publicPath: '/',
+    // 按需加载
+    chunkFilename: "static/js/chunk/[name].[hash:8].js"
   };
 
   // 模块支持

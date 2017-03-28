@@ -1,24 +1,23 @@
-
 export default {
 
-  namespace: 'example',
+  namespace: 'Dashboard',
 
   state: {},
 
   subscriptions: {
     setup({ dispatch, history }) {  // eslint-disable-line
+      dispatch({ type: 'fetch' });
     },
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {  // eslint-disable-line
-      yield put({ type: 'save' });
+    *fetch(action, { call, put, select }) {  // eslint-disable-line
     },
   },
 
   reducers: {
     save(state, action) {
-      return { ...state, ...action.payload };
+      return { ...state};
     },
   },
 
