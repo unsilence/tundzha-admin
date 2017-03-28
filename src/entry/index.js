@@ -1,14 +1,22 @@
 import dva from 'dva';
-import './index.css';
+import createLoading from 'dva-loading';
+import { message } from 'antd';
 
-// 1. Initialize
+const ERROR_MSG_DURATION = 3; // 3 秒
+
 const app = dva();
+// 1. Initialize
+// const app = dva({
+//   onError(e) {
+//     message.error(e.message, ERROR_MSG_DURATION);
+//   },
+// });
 
 // 2. Plugins
-// app.use({});
+app.use(createLoading());
 
 // 3. Model
-// app.model(require('./models/example'));
+// Moved to router.js
 
 // 4. Router
 app.router(require('./router'));

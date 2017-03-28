@@ -58,11 +58,21 @@ module.exports = function(webpackConfig, env){
         loader: 'babel?cacheDirectory=.cache',
         exclude: /node_modules/
       }, {
+        test: /\.css$/,
+        include: APP_PATH,
+        loader: ExtractTextPlugin.extract('style','css?importLoaders=1&modules&localIdentName=[local]___[hash:base64:8]!postcss')
+      }, {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style','css?importLoaders=1&modules&localIdentName=[local]___[hash:base64:5]','less','postcss')
+        include: APP_PATH,
+        loader: ExtractTextPlugin.extract('style','css?importLoaders=1&modules&localIdentName=[local]___[hash:base64:8]!postcss!less')
       }, {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style','css?importLoaders=1&modules&localIdentName=[local]___[hash:base64:5]','postcss')
+        include: path.resolve(ROOT_PATH,'node_modules'),
+        loader: ExtractTextPlugin.extract('style','css?importLoaders=1!postcss')
+      }, {
+        test: /\.less$/,
+        include: path.resolve(ROOT_PATH,'node_modules'),
+        loader: ExtractTextPlugin.extract('style','css?importLoaders=1!postcss!less')
       }, {
         test: /\.json$/,
         loader: 'json'
