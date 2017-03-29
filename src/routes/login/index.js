@@ -1,30 +1,23 @@
 import React, { PropTypes } from 'react';
 import { Button, Row, Form, Input } from 'antd';
 import { config } from '../../utils';
-import styles from './index.less';
+import loginSkin from './index.less';
 
 const FormItem = Form.Item;
 
-const Login = ({
-  loginButtonLoading,
-  handleLogin,
-  form: {
-    getFieldDecorator,
-    validateFieldsAndScroll,
-  },
-}) => {
+const Login = ({ form: { getFieldDecorator, validateFieldsAndScroll } }) => {
   function handleOk() {
     validateFieldsAndScroll((errors, values) => {
       if (errors) {
         return false;
       }
-      handleLogin(values);
+      // todo: 登录事件
     });
   }
 
   return (
-    <div className={styles.form}>
-      <div className={styles.logo}>
+    <div className={loginSkin.form}>
+      <div className={loginSkin.logo}>
         <img alt={'logo'} src={config.logoSrc} />
         <span>Ant Design</span>
       </div>
@@ -50,7 +43,7 @@ const Login = ({
           })(<Input size="large" type="password" onPressEnter={handleOk} placeholder="密码" />)}
         </FormItem>
         <Row>
-          <Button type="primary" size="large" onClick={handleOk} loading={loginButtonLoading}>
+          <Button type="primary" size="large" onClick={handleOk} loading="true">
             登录
           </Button>
         </Row>
@@ -65,8 +58,6 @@ const Login = ({
 
 Login.propTypes = {
   form: PropTypes.object,
-  loginButtonLoading: PropTypes.bool,
-  handleLogin: PropTypes.func,
 };
 
 export default Form.create()(Login);

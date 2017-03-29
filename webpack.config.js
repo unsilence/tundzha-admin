@@ -101,28 +101,27 @@ module.exports = function(webpackConfig, env){
     let constructorName = webpackConfig.plugins[x].constructor.name;
     if(constructorName == 'DefinePlugin'){
       let pluginsDefinitions = {
-        __BUILD__:JSON.stringify(__BUILD__)
+        __DEV__: JSON.stringify((env == 'development' ? true : false)),
+        __BUILD__: JSON.stringify(__BUILD__)
       };
       webpackConfig.plugins[x].definitions = _.assign({},webpackConfig.plugins[x].definitions,pluginsDefinitions);
     }
     // webpack替换
     if(constructorName == 'ExtractTextPlugin'){
       isExtractTextPlugin = true;
-      webpackConfig.plugins[x] = new ExtractTextPlugin("static/css/[name].[hash:8].css");
+      webpackConfig.plugins[x] = new ExtractTextPlugin("static/css/[name].[hash:8].css", { allChunks: true });
     }
   }
 
   if(!isExtractTextPlugin){
-    webpackConfig.plugins.push(new ExtractTextPlugin("static/css/[name].[hash:8].css"));
+    webpackConfig.plugins.push(new ExtractTextPlugin("static/css/[name].[hash:8].css", { allChunks: true }));
   }
 
   webpackConfig.plugins.push(new HtmlWebpackPlugin({
     title: 'Node Admin',
     filename: path.resolve(BUILD_PATH,'index.html'),
     template: path.resolve(APP_PATH,'entry','index.html'),
-    chunks: ['app'],
-    inject: true,
-    hash: true,
+    inject: false,
   }));
 
   return webpackConfig;

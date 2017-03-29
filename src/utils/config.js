@@ -1,4 +1,4 @@
-export default {
+const config = {
   name: 'Ant Design Admin',
   prefix: 'antdAdmin',
   footerText: 'Ant Design Admin 版权所有 © 2016 由 zuiidea 支持',
@@ -11,3 +11,5 @@ export default {
     'http://www.zuimeitianqi.com',
   ],
 };
+
+export default config;
