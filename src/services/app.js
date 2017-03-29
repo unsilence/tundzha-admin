@@ -5,6 +5,6 @@ export async function checkLogin() {
     'http://01.zxzc.co/Admin/Admin/checkLogin',
     {
       method: 'post',
-    }
-  )
+    },
+  );
 }

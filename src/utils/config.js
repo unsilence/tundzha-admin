@@ -10,4 +10,4 @@ export default {
   crossDomains: [
     'http://www.zuimeitianqi.com',
   ],
-}
+};

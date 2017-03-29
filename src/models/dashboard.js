@@ -16,8 +16,8 @@ export default {
   },
 
   reducers: {
-    save(state, action) {
-      return { ...state};
+    save(state) {
+      return { ...state };
     },
   },
 

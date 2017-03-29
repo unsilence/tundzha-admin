@@ -6,7 +6,7 @@ const ERROR_MSG_DURATION = 3; // 3 秒
 
 const app = dva({
   onError(e) {
-    notification['error']({
+    notification.error({
       message: '温馨提示',
       description: e.message,
       duration: ERROR_MSG_DURATION,

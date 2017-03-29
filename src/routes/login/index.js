@@ -1,25 +1,25 @@
-import React, { PropTypes } from 'react'
-import { Button, Row, Form, Input } from 'antd'
-import { config } from '../../utils'
-import styles from './index.less'
+import React, { PropTypes } from 'react';
+import { Button, Row, Form, Input } from 'antd';
+import { config } from '../../utils';
+import styles from './index.less';
 
-const FormItem = Form.Item
+const FormItem = Form.Item;
 
-const login = ({
+const Login = ({
   loginButtonLoading,
-  onOk,
+  handleLogin,
   form: {
     getFieldDecorator,
     validateFieldsAndScroll,
   },
 }) => {
-  function handleOk () {
+  function handleOk() {
     validateFieldsAndScroll((errors, values) => {
       if (errors) {
-        return
+        return false;
       }
-      onOk(values)
-    })
+      handleLogin(values);
+    });
   }
 
   return (
@@ -60,13 +60,13 @@ const login = ({
         </p>
       </form>
     </div>
-  )
-}
+  );
+};
 
-login.propTypes = {
+Login.propTypes = {
   form: PropTypes.object,
   loginButtonLoading: PropTypes.bool,
-  onOk: PropTypes.func,
-}
+  handleLogin: PropTypes.func,
+};
 
-export default Form.create()(login)
+export default Form.create()(Login);

@@ -3,5 +3,5 @@ import config from './config';
 
 export default {
   request,
-  config
-}
+  config,
+};

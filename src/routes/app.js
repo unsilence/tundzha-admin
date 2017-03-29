@@ -1,46 +1,54 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Spin } from 'antd';
-import { routerRedux }from 'dva/router';
-import Login from './login'
-import skins from '../components/skin.less';
+import Login from './login';
 
-const app = ({ children,app, loading, location, dispatch }) => {
-  const { login, loginButtonLoading, user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys } = app;
-  const loginProps = {
-    loading,
-    loginButtonLoading,
-    onOk (data) {
-      dispatch({ type: 'app/login', payload: data })
-    },
-  };
+// 主视图
+const MainLayout = ({ child }) => {
   return (
     <div>
-      {console.log(login)}
-      {
-        // 判断登录
-        login ?
-        <div>
-          已登录
-          { children }
-        </div>
-        :
-        <div className={skins.spin}>
-          <Spin tip="加载用户信息..." spinning={loading.global} size="large">
-            <Login {...loginProps} />
-          </Spin>
-        </div>
-      }
+      已登录
+      { child }
     </div>
   );
 };
 
-app.propTypes = {};
+MainLayout.propTypes = {};
 
-export default connect((state, ownProps) => {
-  console.log(state);
+// 登录视图
+const LoginLayout = ({ loginProps }) => {
+  return (
+    <div>
+      <Login {...loginProps} />
+    </div>
+  );
+};
+
+LoginLayout.propTypes = {};
+
+// 入口判断
+const App = ({ children, app, loading, dispatch }) => {
+  const { login, loginButtonLoading } = app;
+
+  const loginProps = {
+    loading,
+    loginButtonLoading,
+    handleLogin(data) {
+      dispatch({ type: 'app/login', payload: data });
+    },
+  };
+
+  return (
+    <div>
+      { login ? <MainLayout child={children} /> : <LoginLayout loginProps={loginProps} /> }
+    </div>
+  );
+};
+
+App.propTypes = {};
+
+export default connect((state) => {
   return {
     app: state.app,
-    loading: state.loading
+    loading: state.loading,
   };
-})(app);
+})(App);

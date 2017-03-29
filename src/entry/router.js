@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route } from 'dva/router';
+import { Router } from 'dva/router';
 
 // Models注册方法
 const cached = {};
@@ -42,7 +42,7 @@ const Routers = (({ history, app }) => {
     },
   ];
 
-  return <Router history={history} routes={routes} />
+  return <Router history={history} routes={routes} />;
 });
 
 export default Routers;

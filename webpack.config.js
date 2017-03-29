@@ -38,11 +38,11 @@ module.exports = function(webpackConfig, env){
   // 输出配置
   webpackConfig.output = {
     path: BUILD_PATH,
-    filename: 'static/js/[name].[hash:8].js',
+    filename: 'static/js/[name].[hash:8].bundle.js',
     pathinfo: true,
     publicPath: '/',
     // 按需加载
-    chunkFilename: "static/js/chunk/[name].[hash:8].js"
+    chunkFilename: "static/js/chunk/[name].[hash:8].chunk.js"
   };
 
   // 模块支持
