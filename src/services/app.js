@@ -2,19 +2,15 @@ import utils from '../utils';
 
 export async function checkLogin() {
   return utils.request(
-    'http://01.zxzc.co/Admin/Admin/checkLogin',
-    {
-      method: 'post',
-    },
+    '/Admin/Admin/checkLogin',
   );
 }
 
 export async function login(data) {
   return utils.request(
-    'http://01.zxzc.co/Admin/Admin/login',
+    '/Admin/Admin/login',
     {
-      method: 'post',
-      body: JSON.stringify(data),
+      body: data,
     },
   );
 }

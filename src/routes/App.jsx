@@ -6,7 +6,7 @@ import styles from '../components/app.less';
 
 // 入口判断
 const App = ({ children, location, dispatch, app, loading }) => {
-  const { login, loginBtnLoading } = app;
+  const { user, login, loginBtnLoading } = app;
   const loginProps = {
     loading,
     loginBtnLoading,
@@ -19,11 +19,12 @@ const App = ({ children, location, dispatch, app, loading }) => {
     <div>
       { login ?
         <div>
-          主程序界面
+          主程序界面<br />
+          登录人：{user.nickname}<br />
           {children}
         </div> :
         <div className={styles['login-layout']}>
-          <Spin tip="正在努力加载" spinning={loading} size="large">
+          <Spin tip="Loading" spinning={loading} size="large">
             <Login {...loginProps} />
           </Spin>
         </div> }
