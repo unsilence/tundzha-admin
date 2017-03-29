@@ -1,7 +1,7 @@
-import { request } from '../utils';
+import utils from '../utils';
 
 export async function checkLogin() {
-  return request(
+  return utils.request(
     'http://01.zxzc.co/Admin/Admin/checkLogin',
     {
       method: 'post',
