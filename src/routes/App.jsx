@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { Spin } from 'antd';
 import Login from './Login';
+import { storage } from '../utils';
 import styles from '../components/app.less';
 
 // 入口判断
@@ -15,9 +16,15 @@ const App = ({ children, location, dispatch, app, loading }) => {
     }
   };
 
+  let is_login = login;
+
+  if(storage.get('login')){
+    is_login = true;
+  }
+
   return (
     <div>
-      { login ?
+      { is_login ?
         <div>
           主程序界面<br />
           登录人：{user.nickname}<br />

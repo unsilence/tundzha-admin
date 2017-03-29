@@ -1,16 +1,12 @@
 import dva from 'dva';
 import createLoading from 'dva-loading';
-import { notification } from 'antd';
+import { message } from 'antd';
 
-const ERROR_MSG_DURATION = 3; // 3 秒
+const ERROR_MSG_DURATION = 1; // 3 秒
 
 const app = dva({
   onError(e) {
-    notification.error({
-      message: '温馨提示',
-      description: e.message,
-      duration: ERROR_MSG_DURATION,
-    });
+    message.error(e.message, ERROR_MSG_DURATION);
   },
 });
 
