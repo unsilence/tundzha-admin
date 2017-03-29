@@ -14,7 +14,9 @@ const app = dva({
   },
 });
 
-app.use(createLoading());
+app.use(createLoading({
+  effects: true,
+}));
 
 app.router(require('./router'));
 

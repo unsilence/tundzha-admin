@@ -31,6 +31,8 @@
   },
   "globals": {
     "__BUILD__": true,
+    "__DEV__": true,
+    "process.env": true,
     "localStorage": true,
     "document": true,
     "window": true,

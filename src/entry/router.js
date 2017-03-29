@@ -19,25 +19,30 @@ const Routers = (({ history, app }) => {
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
           registerModel(app, require('../models/app'));
-          cb(null, require('../routes/app'));
-        }, 'app');
-      },
-      getIndexRoute(nextState, cb) {
-        require.ensure([], (require) => {
           registerModel(app, require('../models/dashboard'));
-          cb(null, { component: require('../routes/dashboard') });
-        }, 'dashboard');
+          cb(null, require('../routes/App'));
+        }, 'app');
       },
       childRoutes: [
         {
-          path: 'login',
-          name: '登录',
-          getIndexRoute(nextSate, cb) {
+          path: 'dashboard',
+          name: '仪盘表',
+          getComponent(nextSate, cb) {
             require.ensure([], (require) => {
-              cb(null, { component: require('../routes/login') });
-            }, 'login');
+              registerModel(app, require('../models/dashboard'));
+              cb(null, { component: require('../routes/Dashboard') });
+            }, 'Dashboard');
           },
         },
+        // {
+        //   path: 'login',
+        //   name: '登录',
+        //   getIndexRoute(nextSate, cb) {
+        //     require.ensure([], (require) => {
+        //       cb(null, { component: require('../routes/login') });
+        //     }, 'login');
+        //   },
+        // },
       ],
     },
   ];

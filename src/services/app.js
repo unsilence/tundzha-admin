@@ -8,3 +8,13 @@ export async function checkLogin() {
     },
   );
 }
+
+export async function login(data) {
+  return utils.request(
+    'http://01.zxzc.co/Admin/Admin/login',
+    {
+      method: 'post',
+      body: JSON.stringify(data),
+    },
+  );
+}
