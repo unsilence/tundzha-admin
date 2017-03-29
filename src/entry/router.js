@@ -23,6 +23,11 @@ const Routers = (({ history, app }) => {
           cb(null, require('../routes/App'));
         }, 'app');
       },
+      getIndexRoute(nextSate, cb) {
+        require.ensure([], (require) => {
+          cb(null, { component: require('../routes/Dashboard') });
+        }, 'Dashboard');
+      },
       childRoutes: [
         {
           path: 'dashboard',

@@ -19,6 +19,7 @@ const App = ({ children, location, dispatch, app, loading }) => {
     <div>
       { login ?
         <div>
+          主程序界面
           {children}
         </div> :
         <div className={styles['login-layout']}>
