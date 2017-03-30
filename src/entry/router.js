@@ -32,22 +32,22 @@ const Routers = (({ history, app }) => {
         {
           path: 'dashboard',
           name: '仪盘表',
-          getComponent(nextSate, cb) {
+          getIndexRoute(nextSate, cb) {
             require.ensure([], (require) => {
               registerModel(app, require('../models/dashboard'));
               cb(null, { component: require('../routes/Dashboard') });
             }, 'Dashboard');
           },
         },
-        // {
-        //   path: 'login',
-        //   name: '登录',
-        //   getIndexRoute(nextSate, cb) {
-        //     require.ensure([], (require) => {
-        //       cb(null, { component: require('../routes/login') });
-        //     }, 'login');
-        //   },
-        // },
+        {
+          path: 'login',
+          name: '登录',
+          getIndexRoute(nextSate, cb) {
+            require.ensure([], (require) => {
+              cb(null, { component: require('../routes/Login') });
+            }, 'Login');
+          },
+        },
       ],
     },
   ];
