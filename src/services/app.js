@@ -2,13 +2,13 @@ import utils from '../utils';
 
 export async function checkLogin() {
   return utils.request(
-    '/Admin/Admin/checkLogin',
+    '/Admin/Login/checkLogin',
   );
 }
 
 export async function login(data) {
   return utils.request(
-    '/Admin/Admin/login',
+    '/Admin/Login/login',
     {
       body: data,
     },

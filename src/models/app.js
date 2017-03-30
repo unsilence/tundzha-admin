@@ -28,6 +28,7 @@ export default {
   effects: {
     *checkLogin(action, { call, put }) {
       const result = yield call(checkLogin);
+      console.log(result, 11232);
       if (!result.data.code) {
         // 同步用户信息
         yield put({ type: 'updateUser', payload: { user: storage.get('user') } });

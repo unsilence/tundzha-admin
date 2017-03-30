@@ -16,6 +16,18 @@ function checkStatus(response) {
   throw error;
 }
 
+function checkCode(data) {
+  if (typeof data.code === 'undefined') {
+    throw new Error('请求异常');
+  }
+  data.code = parseInt(data.code, 10);
+  const response = {
+    data,
+  };
+
+  return response;
+}
+
 /**
  * Requests a URL, returning a promise.
  *
@@ -48,6 +60,6 @@ export default (url = '', options = {}) => {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then(data => ({ data }))
+    .then(checkCode)
     .catch(err => ({ err }));
 };
