@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
 
-const Dashboard = () => {
+const User = () => {
   return (
     <div>
-      仪盘表
+      用户管理
     </div>
   );
 };
 
-export default connect()(Dashboard);
+export default connect()(User);

@@ -66,6 +66,8 @@ const Login = ({
 
 Login.propTypes = {
   form: PropTypes.object,
+  loginBtnLoading: PropTypes.bool,
+  onLogin: PropTypes.func,
 };
 
 export default Form.create()(Login);

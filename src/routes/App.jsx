@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { Spin } from 'antd';
 import Login from './Login';
+import { Link, routerRedux } from 'dva/router';
 import { storage } from '../utils';
 import styles from '../components/app.less';
 
@@ -15,18 +16,25 @@ const App = ({ children, location, dispatch, app, loading }) => {
       dispatch({ type: 'app/login', payload: data});
     }
   };
+  const logout = () => {
+    storage.clear();
+    dispatch(routerRedux.push('/'));
+    dispatch({ type: 'app/logout' });
+  };
 
   let is_login = login;
 
   if(storage.get('login')){
     is_login = true;
   }
-
   return (
     <div>
       { is_login ?
         <div>
           主程序界面<br />
+          <Link to="/">首页</Link><br />
+          <Link to="/user">用户管理</Link><br />
+          <Link onClick={() => logout()}>退出登录</Link><br />
           登录人：{user.nickname}<br />
           {children}
         </div> :

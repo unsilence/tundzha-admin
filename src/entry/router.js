@@ -30,22 +30,12 @@ const Routers = (({ history, app }) => {
       },
       childRoutes: [
         {
-          path: 'dashboard',
-          name: '仪盘表',
+          path: 'user',
+          name: '用户管理',
           getIndexRoute(nextSate, cb) {
             require.ensure([], (require) => {
-              registerModel(app, require('../models/dashboard'));
-              cb(null, { component: require('../routes/Dashboard') });
-            }, 'Dashboard');
-          },
-        },
-        {
-          path: 'login',
-          name: '登录',
-          getIndexRoute(nextSate, cb) {
-            require.ensure([], (require) => {
-              cb(null, { component: require('../routes/Login') });
-            }, 'Login');
+              cb(null, { component: require('../routes/User') });
+            }, 'User');
           },
         },
       ],
