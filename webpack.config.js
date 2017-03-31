@@ -118,7 +118,7 @@ module.exports = function(webpackConfig, env){
   }
 
   webpackConfig.plugins.push(new HtmlWebpackPlugin({
-    title: 'Node Admin',
+    title: 'Tundzha Admin',
     filename: path.resolve(BUILD_PATH,'index.html'),
     template: path.resolve(APP_PATH,'entry','index.html'),
     inject: false,
